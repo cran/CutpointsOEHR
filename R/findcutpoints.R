@@ -106,7 +106,7 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
 
   #get x and estimated y
   ptemp <- termplot(cox_pspline_fit, se=TRUE, plot=FALSE)
-  xterm  <- ptemp$x
+  xterm  <- ptemp[[1]]
   PI_fit <- xterm$y
 
   #Define the minimum y value as turning point of U shape , maximum y value as turning point of inverse U shape
@@ -169,7 +169,7 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
       datatemp$x_c <- relevel(factor(datatemp$x_c),ref='C2')
 
       #Cox model formula
-      if(is.na(confounders)){
+      if(sum(is.na(confounders))){
         f_cox <- Surv(t,d)~factor(x_c)
       }else{
         f_cox <- as.formula(paste('Surv(t,d)~factor(x_c)','+', paste(confounders, collapse=" + ")))
