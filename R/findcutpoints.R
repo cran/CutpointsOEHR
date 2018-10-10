@@ -54,6 +54,7 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
   #rename the variable names in dataset, (t,d,x,x1,x2,...)
   f <- cox_pspline_fit$formula
   variablenames <- all.vars(f)
+  variablenames <- variablenames[variablenames%in%colnames(data)]
   data <- data[,variablenames]
   if(length(variablenames)<3){
     stop("There are not enough variables in dataset. At least (times, cersor, x) are required.")
